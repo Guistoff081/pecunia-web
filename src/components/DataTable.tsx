@@ -6,6 +6,7 @@ import {
     HiOutlineTrash,
 } from 'react-icons/hi2'
 
+
 interface DataTableFieldItem {
     key: string
     label: string
@@ -17,7 +18,7 @@ interface DataTableProps {
 }
 
 const DataTable: React.FC<DataTableProps> = ({ data, fields }) => {
-    const editAction = () => {}
+    const editAction = () => { }
 
     return (
         <div className="overflow-x-auto">

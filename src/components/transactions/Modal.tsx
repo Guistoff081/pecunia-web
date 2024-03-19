@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Modal, Button, TextInput, Label } from 'flowbite-react'
+import { Modal, Button, TextInput, Label, Datepicker } from 'flowbite-react'
 
 interface Transaction {
     id?: number
@@ -17,8 +17,8 @@ interface Transaction {
 interface TransactionModalProps {
     show: boolean
     transaction?: Transaction
-    onClose: () => void
-    onSave: (transaction: Transaction) => void
+    onClose?: () => void
+    onSave?: (transaction: Transaction) => void
     mode: 'create' | 'edit' | 'view'
 }
 
@@ -45,6 +45,7 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target
+        console.log(event)
         setLocalTransaction((prev) => ({ ...prev, [name]: value }))
     }
 
@@ -59,9 +60,6 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
                 <Modal.Header>Nova Transação</Modal.Header>
                 <Modal.Body>
                     <div className="space-y-6">
-                        <h3 className="text-xl font-medium text-gray-900 dark:text-white">
-                            Sign in to our platform
-                        </h3>
                         <div>
                             <div className="mb-2 block">
                                 <Label
@@ -72,6 +70,7 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
                             <TextInput
                                 id="description"
                                 placeholder="Compra da Shopee"
+                                name="description"
                                 value={localTransaction.description}
                                 onChange={handleInputChange}
                                 required
@@ -84,12 +83,97 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
                             <TextInput
                                 id="amount"
                                 placeholder="R$ 0,00"
+                                name="amount"
                                 value={localTransaction.amount}
                                 onChange={handleInputChange}
                                 required
                             />
                         </div>
-
+                        <div>
+                            <div className="mb-2 block">
+                                <Label
+                                    htmlFor="Numero do CPF"
+                                    value="Numero do CPF"
+                                />
+                            </div>
+                            <TextInput
+                                id="Numero do CPF"
+                                name="credit_card_holder_cpf"
+                                placeholder="000000000000"
+                                value={localTransaction.credit_card_holder_cpf}
+                                onChange={handleInputChange}
+                                required
+                            />
+                        </div>
+                        <div>
+                            <div className="mb-2 block">
+                                <Label
+                                    htmlFor="Nome do titular"
+                                    value="Nome do titular"
+                                />
+                            </div>
+                            <TextInput
+                                id="Nome do titular"
+                                name="credit_card_holder_name"
+                                placeholder="Nome do titular"
+                                value={localTransaction.credit_card_holder_name}
+                                onChange={handleInputChange}
+                                required
+                            />
+                        </div>
+                        <div>
+                            <div className="mb-2 block">
+                                <Label
+                                    htmlFor="Numero do cartão"
+                                    value="Numero do cartão"
+                                />
+                            </div>
+                            <TextInput
+                                id="Numero do cartão"
+                                name="credit_card_number"
+                                placeholder="Numero do cartão"
+                                value={localTransaction.credit_card_number}
+                                onChange={handleInputChange}
+                                required
+                            />
+                        </div>
+                        <div>
+                            <div className="mb-2 block">
+                                <Label
+                                    htmlFor="Data de validade"
+                                    value="Data de validade"
+                                />
+                            </div>
+                            <TextInput
+                                id="Data de validade"
+                                type="month"
+                                name="credit_card_due_date"
+                                //language="pt-BR"
+                                //labelTodayButton="Hoje"
+                                //labelClearButton="Limpar"
+                                value={localTransaction.credit_card_due_date}
+                                onChange={handleInputChange}
+                                required
+                            />
+                        </div>
+                        <div>
+                            <div className="mb-2 block">
+                                <Label
+                                    htmlFor="Numero do CVV"
+                                    value="Numero do CVV"
+                                />
+                            </div>
+                            <TextInput
+                                id="Numero do CVV"
+                                name="credit_card_verification_value"
+                                placeholder="123"
+                                value={
+                                    localTransaction.credit_card_verification_value
+                                }
+                                onChange={handleInputChange}
+                                required
+                            />
+                        </div>
                         <div className="w-full">
                             <Button onClick={handleSave}>
                                 {mode === 'create' ? 'Criar' : 'Salvar'}
