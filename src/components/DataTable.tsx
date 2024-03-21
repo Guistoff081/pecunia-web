@@ -6,19 +6,18 @@ import {
     HiOutlineTrash,
 } from 'react-icons/hi2'
 
-
 interface DataTableFieldItem {
     key: string
     label: string
 }
 
 interface DataTableProps {
-    data: object[]
+    data: unknown
     fields: DataTableFieldItem[]
 }
 
 const DataTable: React.FC<DataTableProps> = ({ data, fields }) => {
-    const editAction = () => { }
+    const editAction = () => {}
 
     return (
         <div className="overflow-x-auto">
@@ -43,14 +42,16 @@ const DataTable: React.FC<DataTableProps> = ({ data, fields }) => {
                             ))}
                             <Table.Cell>
                                 <Dropdown
-                                    color='success'
+                                    color="primary"
                                     label="Ações"
                                     size="xs"
                                 >
                                     <Dropdown.Item
                                         icon={HiOutlinePencilSquare}
                                         onClick={editAction}
-                                    >Editar</Dropdown.Item>
+                                    >
+                                        Editar
+                                    </Dropdown.Item>
                                 </Dropdown>
                             </Table.Cell>
                         </Table.Row>
