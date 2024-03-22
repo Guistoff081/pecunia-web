@@ -1,13 +1,16 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { Button, Navbar } from 'flowbite-react'
 import AppLogo from '../../assets/images/logomarca-pecunia.png'
 import { useAuth } from '../../hooks/useAuth'
 
 const AppNavbar: React.FC = () => {
     const navigate = useNavigate()
+    const location = useLocation()
     const { isAuthenticated, logout } = useAuth()
+
+    const isActive = (path: string) => location.pathname === path
 
     const logUserOut = () => {
         logout()
@@ -42,13 +45,17 @@ const AppNavbar: React.FC = () => {
                     <Navbar.Toggle />
                 </div>
                 <Navbar.Collapse>
-                    <Navbar.Link as={Link} to="/" active>
+                    <Navbar.Link as={Link} to="/" active={isActive('/')}>
                         Home
                     </Navbar.Link>
                     {/* <Navbar.Link href="#">Sobre nós</Navbar.Link>
                     <Navbar.Link href="#">Contato</Navbar.Link> */}
                     {isAuthenticated ? (
-                        <Navbar.Link as={Link} to="/transactions">
+                        <Navbar.Link
+                            as={Link}
+                            to="/transactions"
+                            active={isActive('/transactions')}
+                        >
                             Minhas Transações
                         </Navbar.Link>
                     ) : (

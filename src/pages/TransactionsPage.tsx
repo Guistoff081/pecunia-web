@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { Card, Button } from 'flowbite-react'
 import { HiOutlinePlus } from 'react-icons/hi2'
-import DataTable from '../components/DataTable'
-import Modal from '../components/transactions/Modal'
+import DataTable from '../components/transactions/DataTable'
+import NewTransactionModal from '../components/transactions/Modal'
+import type { Transaction } from '../types/transaction'
 import { useFetch } from '../hooks/useFetch'
 import { useAuth } from '../hooks/useAuth'
 
@@ -31,11 +32,14 @@ const TransactionsPage: React.FC = () => {
         { key: 'amount', label: 'Valor' },
     ]
 
-    const [showCreateModal, setShowCreateModal] = useState<boolean>(false)
+    const [showNewTransactionModal, setShowNewTransactionModal] =
+        useState<boolean>(false)
 
     const buttonModal = () => {
-        setShowCreateModal(true)
+        setShowNewTransactionModal(true)
     }
+
+    const handleSaveTransaction = () => {}
 
     return (
         <>
@@ -52,10 +56,11 @@ const TransactionsPage: React.FC = () => {
                     </div>
 
                     <DataTable data={transactions} fields={fields} />
-                    <Modal
+                    <NewTransactionModal
                         mode="create"
-                        show={showCreateModal}
-                        onClose={() => setShowCreateModal(false)}
+                        show={showNewTransactionModal}
+                        onClose={() => setShowNewTransactionModal(false)}
+                        onSave={handleSaveTransaction}
                     />
                 </Card>
             ) : (

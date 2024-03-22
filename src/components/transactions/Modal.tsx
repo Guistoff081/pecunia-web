@@ -1,27 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { Modal, Button, TextInput, Label } from 'flowbite-react'
 import { useForm } from 'react-hook-form'
-
-interface Transaction {
-    id?: number
-    description: string
-    amount: number
-    credit_card_holder_name: string
-    credit_card_holder_id_document: string
-    credit_card_number: string
-    credit_card_due_date: string
-    credit_card_verification_value: string
-    created_at?: string
-    updated_at?: string
-}
-
-interface TransactionModalProps {
-    show: boolean
-    transaction?: Transaction
-    onClose?: () => void
-    onSave?: (transaction: Transaction) => void
-    mode: 'create' | 'edit' | 'view'
-}
+import { TransactionModalProps } from '../../types/transaction'
+import type { Transaction } from '../../types/transaction'
 
 const TransactionModal: React.FC<TransactionModalProps> = ({
     show,
@@ -30,15 +11,19 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
     onSave,
     mode,
 }) => {
-    const InitiaData = {
-        description: '',
-        amount: 0,
-        credit_card_holder_name: '',
-        credit_card_holder_id_document: '',
-        credit_card_number: '',
-        credit_card_due_date: '',
-        credit_card_verification_value: '',
-    }
+    console.log(transaction, 'modal')
+    const InitialData = useMemo(
+        () => ({
+            description: '',
+            amount: 0,
+            credit_card_holder_name: '',
+            credit_card_holder_id_document: '',
+            credit_card_number: '',
+            credit_card_due_date: '',
+            credit_card_verification_value: '',
+        }),
+        []
+    )
 
     const {
         register,
@@ -52,8 +37,12 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
     }
 
     const [localTransaction, setLocalTransaction] = useState<Transaction>(
-        transaction || InitiaData
+        transaction || InitialData
     )
+
+    useEffect(() => {
+        setLocalTransaction(transaction || InitialData)
+    }, [transaction, InitialData])
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target
@@ -100,16 +89,27 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
                                 <TextInput
                                     id="description"
                                     placeholder="Compra da Shopee"
-                                    // value={localTransaction.description}
+                                    value={localTransaction.description}
                                     {...register('description', {
                                         required: 'A Descrição é obrigatória',
                                     })}
                                     onChange={handleInputChange}
-                                    required
+                                    color={
+                                        errors.description
+                                            ? 'failure'
+                                            : 'success'
+                                    }
+                                    helperText={
+                                        <>
+                                            {errors.description && (
+                                                <span className="font-medium">
+                                                    Oops!{' '}
+                                                    {errors.description.message}
+                                                </span>
+                                            )}
+                                        </>
+                                    }
                                 />
-                                {errors.description && (
-                                    <p>{errors.description.message}</p>
-                                )}
                             </div>
                             <div className="flex flex-col">
                                 <div className="mb-2 block">
@@ -129,11 +129,22 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
                                             'O Nome do Titular é obrigatório',
                                     })}
                                     onChange={handleInputChange}
-                                    required
+                                    color={
+                                        errors.description
+                                            ? 'failure'
+                                            : 'success'
+                                    }
+                                    helperText={
+                                        <>
+                                            {errors.description && (
+                                                <span className="font-medium">
+                                                    Oops!{' '}
+                                                    {errors.description.message}
+                                                </span>
+                                            )}
+                                        </>
+                                    }
                                 />
-                                {errors.description && (
-                                    <p>{errors.description.message}</p>
-                                )}
                             </div>
                             <div>
                                 <div className="mb-2 block">
@@ -211,8 +222,10 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
                         </div>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button type="submit">
-                            {mode === 'create' ? 'Criar' : 'Salvar'}
+                        <Button type="submit" color="primary">
+                            {mode === 'create'
+                                ? 'Criar Transação'
+                                : 'Salvar Transação'}
                         </Button>
                     </Modal.Footer>
                 </form>

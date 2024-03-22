@@ -1,36 +1,55 @@
-# React + TypeScript + Vite
+# Pecunia Web
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A web application for managing personal finances, built with React, TailwindCSS, TypeScript, and Vite.
 
-Currently, two official plugins are available:
+## Description
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Pecunia Web is a web application designed to help users manage their personal finances efficiently. It features a user-friendly interface for tracking transactions, setting budgets, and visualizing financial data. Built with React for a dynamic UI, TypeScript for type safety, and Vite for fast development, Pecunia Web aims to provide a seamless experience for managing finances.
 
-## Expanding the ESLint configuration
+## Table of Contents
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- [Installation](#installation)
+- [Usage](#usage)
 
-- Configure the top-level `parserOptions` property like this:
+## Installation
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+1. Clone the repository:
+
+```bash
+git clone https://github.com/Guistoff081/pecunia-web.git
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+2. Navigate to the project directory:
 
-## Setup
+```bash
+cd pecunia-web
+```
 
-- install it with ```pnpm install```
+3. Install dependencies:
 
-- run dev server with ```pnpm dev```
+```bash
+pnpm install
+```
+
+## Usage
+
+To start the development server, run:
+
+```bash
+pnpm dev
+```
+
+The application will be available at `http://localhost:5173/`.
+
+## Contact
+
+Elisson Guímel - <elissong.silva2505@gmail.com>
+
+Project Link: [https://github.com/Guistoff081/pecunia-web](https://github.com/Guistoff081/pecunia-web)
+
+## Acknowledgments
+
+- [React](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vitejs.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
